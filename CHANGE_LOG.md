@@ -1,5 +1,7 @@
 # Animated Attachment :: Change Log
 
+* 2018-0628: 1.2.2 (Katten) for KSP 1.4.5 PRE-RELEASE
+	+ Wheels create auto-struts that inhibits robotic mods to move them. All auto-struts are now removed while any animation is running.
 * 2018-0626: 1.2.1 (Katten) for KSP 1.4.5
 	+ Issue #1: Now applies scaling from models to attach nodes
 * 2018-0625: 1.2.0 (Katten) for KSP 1.4.5
