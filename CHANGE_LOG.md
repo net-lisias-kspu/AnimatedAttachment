@@ -1,5 +1,8 @@
 # Animated Attachment :: Change Log
 
+* 2018-0708: 2.0.1 (Katten) for KSP 1.4.5
+	+ Improves compatibility with KJR by implementing IJointLockState
+	+ Cleanup, since the above fix also works for stock wheel auto-struts
 * 2018-0707: 2.0.0 (Katten) for KSP 1.4.5
 	+ Now supports animated surface attachments
 	+ Now adds support to all moving stock parts
