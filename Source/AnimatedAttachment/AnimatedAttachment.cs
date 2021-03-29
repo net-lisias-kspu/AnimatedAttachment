@@ -1,7 +1,5 @@
-﻿using ModuleWheels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using VectorHelpers;
 
@@ -18,6 +16,8 @@ using VectorHelpers;
  * Instead
  *****************************************************************************/
 
+namespace AnimatedAttachment_NS {
+
 public class AnimatedAttachment : PartModule, IJointLockState
 {
     [KSPField(isPersistant = true, guiName = "Animated attachments", guiActiveEditor = true, guiActive = true, advancedTweakable = true)]
@@ -25,7 +25,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
     public bool activated = true;
     [KSPField(isPersistant = false, guiName = "Debug", guiActiveEditor = true, guiActive = true, advancedTweakable = true)]
     [UI_Toggle(disabledText = "Disabled", enabledText = "Enabled")]
-    public bool debug = false;
+    public bool localDebug = false;
     [KSPField(isPersistant = true, guiName = "Maximum force", guiActiveEditor = true, advancedTweakable = true)]
     [UI_FloatRange(minValue = 1f, maxValue = 1000000f, stepIncrement = 1f)]
     public float maximumForce = 100000f;
@@ -37,7 +37,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
     public float positionSpring = 100000f;
 
     // For debugging purposes, we want to limit the console output a bit 
-    private int debugCounter;
+    private int debugCounter = 0;
 
     // Opotionally show unit vectors of the axes for debugging purposes
     private AxisInfo axisWorld;
@@ -47,14 +47,12 @@ public class AnimatedAttachment : PartModule, IJointLockState
     // Contains info for all the attached sub parts
     List<AttachedPartInfo> attachedPartInfos;
 
-    private static void printf(string format, params object[] a)
-    {
-        int i = 0;
-        string s = (format is string) ? System.Text.RegularExpressions.Regex.Replace((string)format, "%[sdi%]",
-          match => match.Value == "%%" ? "%" : i < a.Length ? (a[i++] != null ? a[i - 1].ToString() : "null") : match.Value) : format.ToString();
-        //for (; i < a.Length; i++)
-        //  s += " " + a[i] != null ? a[i] : "null";
-        Debug.Log("AnimatedAttachment: " + s);
+    private void Start()
+    {   // KSP insists on overwritting this info at Scene changing...
+        // And I don't think it's a good idea to overwrite the datum on the prefab - but I can be convinced otherwise :)
+        BaseField bf = this.Fields["localDebug"];
+        bf.guiActive = KSPe.Globals<Startup>.DebugMode;
+        bf.guiActiveEditor = bf.guiActive;
     }
 
     private void Update()
@@ -63,13 +61,13 @@ public class AnimatedAttachment : PartModule, IJointLockState
 
     private void FixedUpdate()
     {
-        if (debug)
+        if (localDebug)
         {
-            initJointDrive = true;
-            debug = false;
+            this.initJointDrive = true;
+            this.localDebug = false; // I really didn't understood this...
         }
 
-        bool debugLog = debug && ((debugCounter++ % 100) == 0);
+        bool debugLog = localDebug && ((debugCounter++ % 100) == 0);
 
         UpdateAttachments(attachedPartInfos, debugLog);
         UpdateState();
@@ -172,7 +170,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             ConfigNode attachNodeInfo = root.GetNode("ATTACH_NODE_INFO", index);
             if (attachNodeInfo == null)
             {
-                printf("Failed to find ATTACH_NODE_INFO!");
+                Log.warn("Failed to find ATTACH_NODE_INFO!");
                 return;
             }
 
@@ -180,7 +178,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
 
             if (!attachNodeInfo.HasNode("POS_ROT"))
             {
-                printf("Failed to find POS_ROT!");
+                Log.warn("Failed to find POS_ROT!");
                 return;
             }
 
@@ -206,7 +204,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             // Part attachedPart = GetAttachedPart();
 
             if (debugPeriodic)
-                printf("UA: %s %s %s %s",
+                Log.detail("UA: {0} {1} {2} {3}",
                     attachedPart != null ? attachedPart.name : null,
                     nodeType,
                     stackAttachNode != null ? stackAttachNode.id : "null",
@@ -220,7 +218,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
                 (attachedPart != null))
             {
                 if (debugPeriodic)
-                    printf("Skipping parent");
+                    Log.detail("Skipping parent");
 
                 return;
             }
@@ -232,9 +230,8 @@ public class AnimatedAttachment : PartModule, IJointLockState
                     {
                         SetCollider();
 
-                        if (debug)
-                            printf("Setting collider to %s",
-                                collider.name);
+                        Log.detail("Setting collider to {0}",
+                            collider.name);
                     }
                     break;
                 case AttachNode.NodeType.Stack:
@@ -251,7 +248,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
                         }
 
                         if (debug)
-                            printf("Setting attach node to %s",
+                            Log.detail("Setting attach node to {0}",
                                 stackAttachNode.id);
                     }
                     break;
@@ -263,7 +260,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             if (referenceTransform == null)
             {
                 if (debugPeriodic)
-                    printf("Skipping cfg based node: %s", stackAttachNode.id);
+                    Log.detail("Skipping cfg based node: {0}", stackAttachNode.id);
                 return;
             }
 
@@ -276,7 +273,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             if (referencePosRot == null)
             {
                 if (debugPeriodic)
-                    printf("Skipping decoupler shroud");
+                    Log.detail("Skipping decoupler shroud");
                 return;
             }
 
@@ -289,7 +286,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             {
                 if (debugPeriodic)
                     if (attachedPart == null)
-                        printf("No part attached");
+                        Log.detail("No part attached");
 
                 attachedPartOffset = null;
                 return;
@@ -311,7 +308,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
                 // We could do parenting trick for this too, but seems we loose the scaling
                 if (attachedPartOffset == null)
                 {
-                    printf("Recording attachedPartOffset");
+                    Log.detail("Recording attachedPartOffset");
 
                     attachedPartOffset = new PosRot();
 
@@ -327,7 +324,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
 
                 if (attachedPartOriginal == null)
                 {
-                    printf("Recording attachedPartOriginal");
+                    Log.detail("Recording attachedPartOriginal");
 
                     attachedPartOriginal = new PosRot();
                     attachedPartOriginal.rotation = localPosRot.rotation;
@@ -359,7 +356,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
                 attachedPart.transform.localPosition = attachedPartPosRot.position;
 
                 if (debugPeriodic)
-                    printf("Updated pos without physics");
+                    Log.detail("Updated pos without physics");
 
                 // There is nothing more to do, so bail out
                 return;
@@ -370,7 +367,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             if (attachedPart.attachJoint == null)
             {
                 if (debugPeriodic)
-                    printf("No attach joint found");
+                    Log.detail("No attach joint found");
                 return;
             }
 
@@ -399,18 +396,16 @@ public class AnimatedAttachment : PartModule, IJointLockState
                 joint.name = "AnimatedAttachment";
 
                 jointDrive = new JointDrive();
-                printf("Creating a new drive mode. Previous: %s, %s, %s, %s, %s",
+                Log.detail("Creating a new drive mode. Previous: {0}, {1}, {2}, {3}, {4}",
                     joint.name,
                     joint.xDrive.positionSpring,
                     animatedAttachment.part.name,
                     animatedAttachment.part.started,
                     joint.angularXMotion);
 
-                /*
-                printf(string.Format("maximumForce: {0}", animatedAttachment.maximumForce));
-                printf(string.Format("positionDamper: {0}", animatedAttachment.positionDamper));
-                printf(string.Format("positionSpring: {0}", animatedAttachment.positionSpring));
-                */
+                Log.dbg(string.Format("maximumForce: {0}", animatedAttachment.maximumForce));
+                Log.dbg(string.Format("positionDamper: {0}", animatedAttachment.positionDamper));
+                Log.dbg(string.Format("positionSpring: {0}", animatedAttachment.positionSpring));
 
                 // The joint will not respond to changes to targetRotation/Position in locked mode,
                 // so change it to free in all directions
@@ -434,13 +429,13 @@ public class AnimatedAttachment : PartModule, IJointLockState
                 joint.zDrive = jointDrive;
                 //}
                 if (debug)
-                    printf("%s", joint);
+                    Log.detail("{0}", joint);
             }
 
             if (debug)
-                printf("%s", attachedPartPosRot);
+                Log.detail("{0}", attachedPartPosRot);
             if (debug)
-                printf("%s", attachedPartOriginal);
+                Log.detail("{0}", attachedPartOriginal);
 
             // Update the joint.targetRotation using this convenience function, since the joint
             // reference frame has weird axes. Arguments are current and original rotation.
@@ -467,7 +462,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
                     attachedPartOffset.position);
 
             if (debugPeriodic)
-                printf("%s; %s; %s -> %s; %s -> %s; %s",
+                Log.detail("{0}; {1}; {2} -> {3}; {4} -> {5}; {6}",
                     referencePosRot,
                     attachedPartPosRot,
                     attachedPartOffset,
@@ -540,14 +535,13 @@ public class AnimatedAttachment : PartModule, IJointLockState
 
                 float distance = Vector3.Distance(closestPoint, attachPosition);
 
-                if (animatedAttachment.debug)
-                    printf("Collider %s: %s + %s = %s, %s, %sm",
-                        collider.transform.position,
-                        attachedPart.transform.localPosition,
-                        attachedPart.srfAttachNode.position,
-                        attachPosition,
-                        closestPoint,
-                        distance);
+                Log.detail("Collider {0}: {1} + {2} = {3}, {4}, {5}m",
+                    collider.transform.position,
+                    attachedPart.transform.localPosition,
+                    attachedPart.srfAttachNode.position,
+                    attachPosition,
+                    closestPoint,
+                    distance);
 
                 if (distance < bestDistance)
                 {
@@ -568,12 +562,12 @@ public class AnimatedAttachment : PartModule, IJointLockState
         if (attachedPartInfos == null)
         {
             if (debugPeriodic)
-                print("Empty attach node info list!");
+                Log.detail("Empty attach node info list!");
             return;
         }
 
         if (debugPeriodic)
-            printf("Updating %s/%s parts",
+            Log.detail("Updating {0}/{1} parts",
                 attachedPartInfos.Count,
                 part.children.Count);
 
@@ -583,7 +577,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             if (attachNode.nodeTransform == null)
             {
                 if (debugPeriodic)
-                    printf("Skipping %s since it lacks a node transform",
+                    Log.detail("Skipping {0} since it lacks a node transform",
                         attachNode.id);
                 continue;
             }
@@ -597,7 +591,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
             if (attachNodePosRot == null)
             {
                 if (debugPeriodic)
-                    printf("Skipping %s since it is a decoupler shroud",
+                    Log.detail("Skipping {0} since it is a decoupler shroud",
                         attachNode.id);
                 continue;
             }
@@ -613,10 +607,9 @@ public class AnimatedAttachment : PartModule, IJointLockState
             // Create new entries in the list if needed
             if (i >= attachedPartInfos.Count)
             {
-                if (debug)
-                    printf("Adding child %s [%s]",
-                        child.name,
-                        i);
+                Log.detail("Adding child {0} [{1}]",
+                    child.name,
+                    i);
 
                 attachedPartInfos.Add(new AttachedPartInfo(this, child));
             }
@@ -628,39 +621,36 @@ public class AnimatedAttachment : PartModule, IJointLockState
                 attachedPartInfo.attachedPart = child;
                 attachedPartInfo.loaded = false;
 
-                if(debug)
-                    printf("Assigning child %s [%s]",
-                        attachedPartInfo.attachedPart,
-                        i);
+                Log.detail("Assigning child {0} [{1}]",
+                    attachedPartInfo.attachedPart,
+                    i);
             }
             else
             // Remove stale entries
             if (attachedPartInfo.attachedPart != child)
             {
-                if (debug)
-                    printf("Deleting child %s/%s",
-                        attachedPartInfo.attachedPart,
-                        child.name);
+                Log.detail("Deleting child {0}/{1}",
+                    attachedPartInfo.attachedPart,
+                    child.name);
                 attachedPartInfos.Remove(attachedPartInfo);
                 i--;
                 continue;
             }
 
             if (debugPeriodic)
-                printf("Updating child %s [%s]",
+                Log.detail("Updating child {0} [{1}]",
                     attachedPartInfo,
                     i);
-            attachedPartInfo.UpdateAttachments(flightState, debug, debugPeriodic);
+            attachedPartInfo.UpdateAttachments(flightState, this.localDebug, debugPeriodic);
         }
 
         // Continue deleting surplus entries
         while (attachedPartInfos.Count > part.children.Count)
         {
             AttachedPartInfo attachedPartInfo = attachedPartInfos[part.children.Count];
-            if (debug)
-                printf("Deleting child %s [%s]",
-                    attachedPartInfo.attachedPart,
-                    part.children.Count);
+            Log.detail("Deleting child {0} [{1}]",
+                attachedPartInfo.attachedPart,
+                part.children.Count);
             attachedPartInfos.Remove(attachedPartInfo);
         }
     }
@@ -668,7 +658,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
     private void UpdateDebugAxes()
     {
         // Debug info
-        if (debug)
+        if (this.localDebug)
         {
             // Show debug vectors for this part itselft
             if (axisAttachNode == null)
@@ -698,9 +688,6 @@ public class AnimatedAttachment : PartModule, IJointLockState
     {
         base.OnStart(state);
 
-        printf("*** AnimatedAttachement_v{0}:LoadConfig ***", 
-            Assembly.GetExecutingAssembly().GetName().Version);
-
         RemoveNoAttach();
 
         InitAttachNodeLists();
@@ -718,12 +705,10 @@ public class AnimatedAttachment : PartModule, IJointLockState
         {
             if (collider.tag == "NoAttach")
             {
-                /*
-                printf("AnimatedAttachment: Removing tag %s from collider %s in part %s",
+                Log.dbg("AnimatedAttachment: Removing tag {0} from collider {1} in part {2}",
                     collider.tag,
                     collider.name,
                     part.name);
-                */
 
                 collider.tag = "Untagged";
             }
@@ -734,7 +719,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
     {
         base.OnStartFinished(state);
 
-        printf("OnStartFinished");
+        Log.detail("OnStartFinished");
 
         flightState = State.STARTED;
         //initJointDrive = true;
@@ -749,8 +734,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
         foreach (AttachedPartInfo attachNodInfo in attachNodeInfos)
             attachNodInfo.Save(node);
 
-        if (debug)
-            printf("Save: %s", node);
+        Log.detail("Save: {0}", node);
     }
 
     public override void OnSave(ConfigNode node)
@@ -759,8 +743,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
 
         Save(node.AddNode("ATTACHED_PART_INFOS"), attachedPartInfos);
 
-        if (debug)
-            printf("Save: %s", node);
+        Log.detail("Save: {0}", node);
 
         // Save original positions when saving the ship.
         // Don't do it at the save occuring at initial scene start.
@@ -811,14 +794,6 @@ public class AnimatedAttachmentUpdater : MonoBehaviour
 {
     float timeWarpCurrent;
 
-    private static void printf(string format, params object[] a)
-    {
-        int i = 0;
-        string s = (format is string) ? System.Text.RegularExpressions.Regex.Replace((string)format, "%[sdi%]",
-          match => match.Value == "%%" ? "%" : i < a.Length ? (a[i++] != null ? a[i - 1].ToString() : "null") : match.Value) : format.ToString();
-        Debug.Log("AnimatedAttachmentUpdater: " + s);
-    }
-
     // Retrieve the active vessel and its parts
     public static List<Part> GetParts()
     {
@@ -841,7 +816,7 @@ public class AnimatedAttachmentUpdater : MonoBehaviour
         {
             if (TimeWarp.CurrentRate != 1 && timeWarpCurrent == 1)
             {
-                printf("AnimatedAttachment: TimeWarp started");
+                Log.detail("AnimatedAttachment: TimeWarp started");
                 UpdateOriginalPositions();
             }
             timeWarpCurrent = TimeWarp.CurrentRate;
@@ -877,14 +852,6 @@ public class AutoStrutUpdater: MonoBehaviour
 
     PartInfo[] partInfos;
 
-    private static void printf(string format, params object[] a)
-    {
-        int i = 0;
-        string s = (format is string) ? System.Text.RegularExpressions.Regex.Replace((string)format, "%[sdi%]",
-          match => match.Value == "%%" ? "%" : i < a.Length ? (a[i++] != null ? a[i - 1].ToString() : "null") : match.Value) : format.ToString();
-        Debug.Log(s);
-    }
-
     // Retrieve the active vessel and its parts
     public static List<Part> GetParts()
     {
@@ -906,7 +873,7 @@ public class AutoStrutUpdater: MonoBehaviour
             return;
         wasMoving = isMoving;
 
-        printf(isMoving ? "Started moving" : "Stopped moving");
+        Log.detail(isMoving ? "Started moving" : "Stopped moving");
 
         List<Part> parts = AnimatedAttachmentUpdater.GetParts();
 
@@ -928,7 +895,7 @@ public class AutoStrutUpdater: MonoBehaviour
                 partInfo.part = part;
                 partInfo.autoStrutMode = part.autoStrutMode;
 
-                printf("Changing auto strut of %s from %s to %s",
+                Log.detail("Changing auto strut of {0} from {1} to {2}",
                     part.name,
                     part.autoStrutMode,
                     Part.AutoStrutMode.Off);
@@ -946,7 +913,7 @@ public class AutoStrutUpdater: MonoBehaviour
                 if (partInfo == null)
                     continue;
 
-                printf("Changing auto strut of %s from %s to %s",
+                Log.detail("Changing auto strut of {0} from {1} to {2}",
                     partInfo.part.name,
                     partInfo.part.autoStrutMode,
                     partInfo.autoStrutMode);
@@ -968,4 +935,6 @@ public class AutoStrutUpdater: MonoBehaviour
                         return true;
         return false;
     }
+}
+
 }
