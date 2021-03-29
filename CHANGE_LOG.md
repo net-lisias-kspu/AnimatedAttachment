@@ -1,5 +1,7 @@
 # Animated Attachment :: Change Log
 
+* 2019-0331: 2.1.2 (Katten) for KSP 1.4.5
+	+ Updated to KSP v1.6.1
 * 2018-0817: 2.1.1 (Katten) for KSP 1.4.5
 	+ Added compatibility with PangolinMechanicsToolkit
 * 2018-0719: 2.1.0 (Katten) for KSP 1.4.5
