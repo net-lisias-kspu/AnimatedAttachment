@@ -1,5 +1,7 @@
 # Animated Attachment :: Change Log
 
+* 2018-0817: 2.1.1 (Katten) for KSP 1.4.5
+	+ Added compatibility with PangolinMechanicsToolkit
 * 2018-0719: 2.1.0 (Katten) for KSP 1.4.5
 	+ Now compatible with KIS/KAS.
 	+ Fine-tuning now works without having to disable the mod
