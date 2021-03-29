@@ -1,5 +1,7 @@
 # Animated Attachment :: Change Log
 
+* 2019-0512: 2.1.3 (Katten) for KSP 1.4.5
+	+ Compiled for KSP v1.7.0
 * 2019-0331: 2.1.2 (Katten) for KSP 1.4.5
 	+ Updated to KSP v1.6.1
 * 2018-0817: 2.1.1 (Katten) for KSP 1.4.5
