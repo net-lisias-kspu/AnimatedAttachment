@@ -1,15 +1,15 @@
-
-Copy From Dropbox.bat
-Copy To Dropbox.bat
-GameData/AnimatedAttachment/Plugins/AnimatedAttachment.pdb
-GameData/AnimatedAttachment/Plugins/Assembly-CSharp-firstpass.dll
-GameData/AnimatedAttachment/Plugins/Assembly-CSharp.dll
-GameData/AnimatedAttachment/Plugins/TDx.TDxInput.dll
-GameData/AnimatedAttachment/Plugins/UnityEngine.dll
-GameData/AnimatedAttachment/Plugins/UnityEngine.UI.dll
-AnimatedAttachment/obj/Debug/AnimatedAttachment.csproj.CoreCompileInputs.cache
-AnimatedAttachment/obj/Debug/AnimatedAttachment.csproj.FileListAbsolute.txt
-AnimatedAttachment/obj/Debug/AnimatedAttachment.csprojResolveAssemblyReference.cache
-AnimatedAttachment/obj/Debug/AnimatedAttachment.csproj.CoreCompileInputs.cache
-AnimatedAttachment/obj/Debug/AnimatedAttachment.csproj.CoreCompileInputs.cache
-AnimatedAttachment/obj/Debug/AnimatedAttachment.csproj.FileListAbsolute.txt
+.vs
+Archive
+GameData/**/*.dll
+GameData/**/LICENSE*
+GameData/**/NOTICE
+GameData/**/README.md
+GameData/**/CHANGE_LOG.md
+GameData/**/KNOWN_ISSUES.md
+GameData/**/*.version
+Source/**/Properties/Version.cs
+Source/**/Properties/Configuration.cs
+Source/*/*.user
+bin
+obj
+packages
