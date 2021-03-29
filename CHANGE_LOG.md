@@ -1,12 +1,17 @@
 # Animated Attachment :: Change Log
 
-* 2020-0715: 2.1.5 (Katten) for KSP 1.4.5
+* 2021-0329: 2.1.5.1 (LisiasT) for KSP >= 1.4.0
+	+ Added KSPe facilities:
+		- Logging/Debugging
+		- File System Abstraction
+	+ Works on every KSP version from 1.4.0 to the latest.
+* 2020-0715: 2.1.5 (Katten) for KSP 1.10.0
 	+ Updated to indicate compatibility with KSP v1.10
-* 2019-0601: 2.1.4 (Katten) for KSP 1.4.5
+* 2019-0601: 2.1.4 (Katten) for KSP 1.7.0
 	+ Added default support for launch clamps
-* 2019-0512: 2.1.3 (Katten) for KSP 1.4.5
+* 2019-0512: 2.1.3 (Katten) for KSP 1.7.0
 	+ Compiled for KSP v1.7.0
-* 2019-0331: 2.1.2 (Katten) for KSP 1.4.5
+* 2019-0331: 2.1.2 (Katten) for KSP 1.6.1
 	+ Updated to KSP v1.6.1
 * 2018-0817: 2.1.1 (Katten) for KSP 1.4.5
 	+ Added compatibility with PangolinMechanicsToolkit
