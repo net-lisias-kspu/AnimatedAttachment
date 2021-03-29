@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Xml;
 using UnityEngine;
 using VectorHelpers;
 
@@ -317,11 +316,11 @@ public class AnimatedAttachment : PartModule, IJointLockState
                     attachedPartOffset = new PosRot();
 
                     attachedPartOffset.rotation =
-                        referencePosRot.rotation.Inverse() *
+                        Quaternion.Inverse(referencePosRot.rotation) *
                         localPosRot.rotation;
 
                     attachedPartOffset.position =
-                        referencePosRot.rotation.Inverse() *
+                        Quaternion.Inverse(referencePosRot.rotation) *
                         (localPosRot.position -
                         referencePosRot.position);
                 }
@@ -462,7 +461,7 @@ public class AnimatedAttachment : PartModule, IJointLockState
 
             // This scaling and rotation is to convert to joint space... maybe? 
             // Determined by random tinkering and is magical as far as I am concerned
-            joint.anchor = attachedPartOffset.rotation.Inverse() *
+            joint.anchor = Quaternion.Inverse(attachedPartOffset.rotation) *
                 Vector3.Scale(
                     new Vector3(-1, -1, -1),
                     attachedPartOffset.position);
