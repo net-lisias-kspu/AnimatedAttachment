@@ -1,5 +1,7 @@
 # Animated Attachment :: Change Log
 
+* 2020-0715: 2.1.5 (Katten) for KSP 1.4.5
+	+ Updated to indicate compatibility with KSP v1.10
 * 2019-0601: 2.1.4 (Katten) for KSP 1.4.5
 	+ Added default support for launch clamps
 * 2019-0512: 2.1.3 (Katten) for KSP 1.4.5
