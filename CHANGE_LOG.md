@@ -1,5 +1,7 @@
 # Animated Attachment :: Change Log
 
+* 2018-0708: 2.0.2 (Katten) for KSP 1.4.5
+	+ Cleaned out some dlls that were mistakenly included in the release
 * 2018-0708: 2.0.1 (Katten) for KSP 1.4.5
 	+ Improves compatibility with KJR by implementing IJointLockState
 	+ Cleanup, since the above fix also works for stock wheel auto-struts
