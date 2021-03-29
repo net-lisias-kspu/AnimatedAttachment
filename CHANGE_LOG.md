@@ -1,5 +1,9 @@
 # Animated Attachment :: Change Log
 
+* 2018-0719: 2.1.0 (Katten) for KSP 1.4.5
+	+ Now compatible with KIS/KAS.
+	+ Fine-tuning now works without having to disable the mod
+	+ Increased default spring&force
 * 2018-0709: 2.0.3 (Katten) for KSP 1.4.5
 	+ Implemented a work-around for an issue in stock wheel auto-struts
 * 2018-0708: 2.0.2 (Katten) for KSP 1.4.5
