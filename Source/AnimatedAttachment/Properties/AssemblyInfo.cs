@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Animated Attachment")]
+[assembly: AssemblyTitle("Animated Attachment /L Unofficial")]
 [assembly: AssemblyDescription("Allows generic animations to move attached parts")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("L Aerospace/KSP Division")]
