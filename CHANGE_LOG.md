@@ -1,10 +1,12 @@
 # Animated Attachment :: Change Log
 
-* 2021-0329: 2.1.5.1 (LisiasT) for KSP >= 1.4.0
+* 2021-0413: 2.1.5.2 (LisiasT) for KSP >= 1.4.0
 	+ Added KSPe facilities:
 		- Logging/Debugging
 		- File System Abstraction
 	+ Works on every KSP version from 1.4.0 to the latest.
+* 2021-0329: 2.1.5.1 (LisiasT) for KSP >= 1.4.0
+	+ ***DITCHED*** due wrongly compilation against a beta release of KSPe.
 * 2020-0715: 2.1.5 (Katten) for KSP 1.10.0
 	+ Updated to indicate compatibility with KSP v1.10
 * 2019-0601: 2.1.4 (Katten) for KSP 1.7.0
