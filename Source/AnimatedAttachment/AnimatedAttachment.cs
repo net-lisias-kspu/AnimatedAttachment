@@ -843,6 +843,9 @@ public class AnimatedAttachmentUpdater : MonoBehaviour
     {
         List<Part> parts = GetParts();
         foreach (Part part in parts)
+            // FIXME:
+            // This will cause parts to drift on timewarp, exactly as the Robotics!
+            // "Nobody should ever call Part.UpdateOrgPosAndRot() outside of the editor for existing parts."
             part.UpdateOrgPosAndRot(part.localRoot);
     }
 }

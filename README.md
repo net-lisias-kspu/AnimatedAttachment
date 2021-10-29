@@ -14,6 +14,7 @@ Allows generic animations to move attached parts
 	+ [Project's README](https://github.com/net-lisias-kspu/AnimatedAttachment/blob/master/README.md)
 	+ [Install Instructions](https://github.com/net-lisias-kspu/AnimatedAttachment/blob/master/INSTALL.md)
 	+ [Change Log](./CHANGE_LOG.md)
+	+ [Known Issues](https://github.com/net-lisias-kspu/AnimatedAttachment/blob/master/KNOWN_ISSUES.md)
 	+ [TODO](./TODO.md) list
 
 
@@ -27,7 +28,7 @@ Parts are moved by using physical forces in the joints. This means that they wil
 
 ### Limitations & known issues
 
-See [known issues file](./KNOWN_ISSUES.md)
+See [known issues file](https://github.com/net-lisias-kspu/AnimatedAttachment/blob/master/KNOWN_ISSUES.md)
 
 ### Basic usage
 

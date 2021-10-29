@@ -13,6 +13,7 @@
 
 */
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace AnimatedAttachment_NS
 {
@@ -22,6 +23,18 @@ namespace AnimatedAttachment_NS
 		{
 			string[] r = {"AnimatedAttachment" }; //{typeof(ModuleManagerSupport).Namespace};
 			return r;
+		}
+	}
+
+	[KSPAddon(KSPAddon.Startup.Instantly, true)]
+	internal class ModuleManagerListener:MonoBehaviour
+	{
+		internal static bool shouldShowWarnings = true;
+
+		public static void ModuleManagerPostLoad()
+		{
+			shouldShowWarnings = !KSPe.Util.ModuleManagerTools.IsLoadedFromCache;
+			Log.detail("ModuleManagerPostLoad handled! shouldShowWarnings is {0}", shouldShowWarnings);
 		}
 	}
 }

@@ -64,7 +64,7 @@
       <DependentUpon>Version.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\LegalMamboJambo.cs" />
-    <Compile Include="GUI\HotFixAdviseBox.cs" />
+    <Compile Include="GUI\SeriousBugAdviseBox.cs" />
     <Compile Include="GUI\CommonBox.cs" />
   </ItemGroup>
   <ItemGroup>
