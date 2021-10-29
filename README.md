@@ -1,8 +1,8 @@
-# Animated Attachment /L Unofficial
+# Animated Attachment /L Unleashed
 
 Allows generic animations to move attached parts
 
-Unofficial fork by Lisias.
+[Unleashed](https://ksp.lisias.net/add-ons-unleashed/) fork by Lisias.
 
 
 ## In a Hurry
@@ -27,7 +27,7 @@ Parts are moved by using physical forces in the joints. This means that they wil
 
 ### Limitations & known issues
 
-* [#3](https://github.com/KSPKatten/AnimatedAttachment/issues/3) There is a caveat for physics-less parts - while they and any other physics-less sub-parts to them will move with the animation, any physics-enabled sub-parts will not. For example, a cubic strut connected to a hinge will move with it, but a tank connected to the cubic strut will not.
+See [known issues file](./KNOWN_ISSUES.md)
 
 ### Basic usage
 

@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*
+	This file is part of Animated Attachment /L Unleashed
+		© 2021 Lisias T : http://lisias.net <support@lisias.net>
+		© 2018-2021 Katten
+
+	Animated Attachment /L Unleashed is licensed as follows:
+
+		* CC-BY-NC-SA 4.0i : https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+	Animated Attachment /L Unleashed is distributed in the hope that
+	it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+	warranty of	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+*/
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VectorHelpers;

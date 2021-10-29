@@ -1,4 +1,4 @@
-# Animated Attachment :: Changes
+# Animated Attachment /L Unleashed :: Changes
 
 * 2021-0413: 2.1.5.2 (LisiasT) for KSP >= 1.4.0
 	+ Added KSPe facilities:

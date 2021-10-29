@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Animated Attachment /L Unofficial")]
+[assembly: AssemblyTitle("Animated Attachment /L Unleashed")]
 [assembly: AssemblyDescription("Allows generic animations to move attached parts")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("L Aerospace/KSP Division")]
-[assembly: AssemblyProduct("GPWS /L Unofficial")]
-[assembly: AssemblyCopyright("© 2021 LisiasT")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany(AnimatedAttachment_NS.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(AnimatedAttachment_NS.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(AnimatedAttachment_NS.LegalMamboJambo.Copyright)]
+[assembly: AssemblyTrademark(AnimatedAttachment_NS.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
@@ -33,5 +33,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(AnimatedAttachment_NS.Version.Number)]
 [assembly: AssemblyFileVersion(AnimatedAttachment_NS.Version.Number)]
-[assembly: KSPAssemblyDependency("KSPe", 2, 2)]
-[assembly: KSPAssemblyDependency("KSPe.UI", 2, 2)]
+[assembly: KSPAssemblyDependency("KSPe", 2, 4)]
+[assembly: KSPAssemblyDependency("KSPe.UI", 2, 4)]
