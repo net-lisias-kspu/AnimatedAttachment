@@ -1,5 +1,8 @@
 # Animated Attachment /L Unleashed :: Change Log
 
+* 2021-1029: 2.1.5.3 (LisiasT) for KSP >= 1.4.0
+	+ Updated to KSPe v2.4
+	+ Added a warning about a serious condition on the Add'On that may hinder some savegames.
 * 2021-0413: 2.1.5.2 (LisiasT) for KSP >= 1.4.0
 	+ Added KSPe facilities:
 		- Logging/Debugging
