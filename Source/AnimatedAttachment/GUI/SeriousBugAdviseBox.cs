@@ -22,7 +22,7 @@ namespace AnimatedAttachment_NS.GUI
 	{
 		private static readonly string MSG = @"There's a serious bug on this Release that can render your crafts deformed due inphysics stress as it happens with Docking Ports on KSP 1.12.2 and with Robotics since 1.7.3.
 
-So it's **unwise** to use this on Carrers or Role Playing Sandbox savegames.
+So it's <b>unwise</b> to use this on Careers or Role Playing Sandbox savegames.
 
 But it's ok for artistic craft design, shooting movies, etc where the craft persistence on the savegame is not important.
 
