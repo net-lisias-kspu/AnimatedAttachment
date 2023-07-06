@@ -17,18 +17,15 @@ using UnityEngine;
 
 namespace AnimatedAttachment_NS
 {
-	public static class ModuleManagerSupport
+	[KSPAddon(KSPAddon.Startup.Instantly, true)]
+	internal class ModuleManagerListener:MonoBehaviour
 	{
 		public static IEnumerable<string> ModuleManagerAddToModList()
 		{
 			string[] r = {"AnimatedAttachment" }; //{typeof(ModuleManagerSupport).Namespace};
 			return r;
 		}
-	}
 
-	[KSPAddon(KSPAddon.Startup.Instantly, true)]
-	internal class ModuleManagerListener:MonoBehaviour
-	{
 		internal static bool shouldShowWarnings = true;
 
 		public static void ModuleManagerPostLoad()
