@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of Animated Attachment /L Unleashed
-		© 2021 Lisias T : http://lisias.net <support@lisias.net>
+		© 2021-2023 Lisias T : http://lisias.net <support@lisias.net>
 		© 2018-2021 Katten
 
 	Animated Attachment /L Unleashed is licensed as follows:
